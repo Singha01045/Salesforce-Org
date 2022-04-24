@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="Event template" >
+    <aura:attribute name="showContactForm" type="boolean"/>
+    <aura:attribute name="showOpportunityForm" type="boolean"/>
+</aura:event>

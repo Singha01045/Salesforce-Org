@@ -1,0 +1,9 @@
+<aura:component >
+	<aura:attribute name="id" type="Integer"/>
+    <!-- <aura:registerEvent name="myAppEvent" type="c:LightningApplicationEvent" /> -->
+    <aura:handler event="c:LightningApplicationEvent" action=" {!c.handleOwnApplicationEvent} " phase="default" />
+    <div class="innerComponent">
+        Inner Component<br/>
+        <lightning:button onclick="{!c.fireOwnApplicationEvent}"> FIRE EVENT</lightning:button>
+    </div>
+</aura:component>

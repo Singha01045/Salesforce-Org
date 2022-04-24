@@ -1,0 +1,13 @@
+<aura:component >
+    
+    <aura:registerEvent name="notifyEvent" type="c:NotifierHandlerEvent"/>
+    <aura:handler name="notifyEvent" event="c:NotifierHandlerEvent" action="{!c.handleOwnEvent}" phase="bubble"/>   <!--EVENT HANDLER -->
+    <div class="slds-p-horizontal_small">
+        <h1>Simple Component Event Example</h1> <br/>
+        <p>
+            <!-- <lightning:button label="Click to fire a Component Event" onclick="{!c.fireOwnEvent_SetMsgForParent}"/> -->
+            <lightning:button label="Click to fire a Component Event" onclick="{!c.fireOwnEvent}"/>
+        </p>
+    </div>
+    
+</aura:component>

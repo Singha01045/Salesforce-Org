@@ -1,0 +1,11 @@
+<!-- Ctrls which attributes are exposed to builder -->
+<design:component> 
+    <design:attribute name="heading" label="Enter the name of the Tutorial"/>
+    <design:attribute name="topic" label="Enter the Topic"/>
+    <design:supportedFormFactors>
+        <design:supportedFormFactor type="large"> </design:supportedFormFactor>
+    </design:supportedFormFactors>
+    <sfdc:objects>
+        <sfdc:object>University__c</sfdc:object>
+    </sfdc:objects>
+</design:component>

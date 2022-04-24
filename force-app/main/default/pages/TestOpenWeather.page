@@ -1,0 +1,12 @@
+<apex:page standardController="Contact" extensions="testOpenWeatherController" showHeader="false" sidebar="false">
+    <apex:pageBlock title="{!City} Weather">
+        <apex:pageBlockSection >
+            <apex:pageMessages ></apex:pageMessages>
+            <apex:outputText label="Tempertaure" value="{!Temp}"/>
+            <apex:outputText label="Pressure" value="{!Pressure}"/>
+            <apex:outputText label="Humidity" value="{!Humidity}"/>
+            <apex:outputText label="Minimum Temp" value="{!minTemp}"/>
+            <apex:outputText label="Maximum Temp" value="{!maxTemp}"/>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

@@ -1,0 +1,11 @@
+<aura:component controller="AuraController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >  
+    <aura:attribute name="OppList" type="Opportunity[]"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:handler event="c:SearchBarEvent" action="{!c.searchOpportunity}"/>
+
+    <lightning:button onclick="{!c.fireOwnEvent}" label="Related Opportunity" iconName="standard:opportunity"/><br/>
+        <lightning:datatable data="{!v.OppList}" 
+                             columns="{!v.columns}" 
+                             keyField="Id"
+                             />
+</aura:component>

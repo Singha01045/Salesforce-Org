@@ -1,0 +1,18 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <aura:attribute name="title" type="string" default="Calculating Sum"/>
+    <aura:attribute name="firstNumber" type="decimal" />
+    <aura:attribute name="lastNumber" type="decimal" />
+    <div class="slds-p-horizontal_small">
+        <lightning:card>
+            <aura:set attribute="title">
+                <lightning:icon iconName="utility:connected_apps" size="small"/>
+                {!v.title}
+            </aura:set>
+            <aura:set attribute="footer">
+                <lightning:button variant="brand" label="CALCULATE SUM" onclick= "{!c.handleClick}"/>
+            </aura:set>
+            <lightning:input type="decimal" label="Enter First Number" value="{!v.firstNumber}" />
+            <lightning:input type="decimal" label="Enter Last Number" value="{!v.lastNumber}" />  
+        </lightning:card>
+    </div>
+</aura:component>

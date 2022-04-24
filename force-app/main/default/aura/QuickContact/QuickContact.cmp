@@ -1,0 +1,23 @@
+<aura:component controller="AuraController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global">
+    <aura:handler event="c:DisplayFormOnButtonClickApplicationEvent" action="{!c.handleEvent}" />
+    <aura:attribute name="show" type="boolean"/>
+    <aura:attribute name="createCon" type="contact" default="{
+        sobjectName:'Contact',
+        FirstName:'',
+        LastName:'',
+        Phone:''                                                                                                               
+    }" />
+    <aura:if isTrue="{!v.show}">
+     <lightning:card title="CREATE NEW CONTACT" iconName="standard:contact">
+        <p class="slds-p-horizontal_small">
+            <div>
+                <lightning:input type="text" label="Enter FirstName" value="{!v.createCon.FirstName}" />
+                <lightning:input type="text" label="Enter LastName" value="{!v.createCon.LastName}" required="true" /><br/>
+                <lightning:input type="text" label="Enter Phone Number" value="{!v.createCon.Phone}"/><br/>               
+                <lightning:button label="Save"  variant="brand" onclick="{!c.doSave}"/>   <!--variant changes the appearance of the component-->
+            </div><br/>
+        </p>
+    </lightning:card>
+    </aura:if>
+     
+</aura:component>

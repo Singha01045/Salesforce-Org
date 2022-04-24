@@ -1,0 +1,62 @@
+<aura:component controller="AuraController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <aura:registerEvent name="switch" type="c:DisplayFormOnButtonClickApplicationEvent"/>
+    <aura:handler event="c:SearchBarEvent" action="{!c.searchContact}"/>
+    <aura:handler event="c:SearchBarEvent" action="{!c.searchOpportunity}"/>
+   
+    <aura:attribute name="toggle" type="Boolean" default="true"/>  
+    <aura:attribute name="ContactList" type="contact[]"/>
+    <aura:attribute name="columns" type="List"/> 
+    <aura:attribute name="OppList" type="Opportunity[]"/>
+    
+    <div class="demo-only" style="height:12rem">
+        <div class="slds-tabs_default">
+            <ul class="slds-tabs_default__nav" role="tablist">
+                <li class="slds-tabs_default__item" title="Contacts" role="presentation">
+                    <lightning:button onclick="{!c.fireContactEvent}" label="Related Contacts" iconName="standard:contact"/>
+                </li>
+                
+                <li class="slds-tabs_default__item" title="Opportunities" role="presentation">
+                    <lightning:button onclick="{!c.fireOpportunityEvent}" label="Related Opportunity" iconName="standard:opportunity"/>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    
+    <aura:if isTrue= "{!v.toggle}">
+        <!-- RELATED  CONTACTS -->        
+        <lightning:datatable data="{!v.ContactList}" 
+                                 columns="{!v.columns}" 
+                                 keyField="Id"
+                                 hideCheckboxColumn="true"/>
+        <!--  <div>  <c:QuickContact/> </div>  -->
+        
+        
+        <!-- RELATED  OPPORTUNITY -->     
+        <aura:set attribute="else">
+            <div class="slds"> 
+                <table class="slds-table slds-table--bordered slds-table--striped">
+                    <thead>
+                        <tr>
+                            <th scope="col"><span class="slds-truncate">Opportunity ID</span></th>
+                            <th scope="col"><span class="slds-truncate">Opportunity Name</span></th>
+                            <th scope="col"><span class="slds-truncate">Stage Name</span></th>
+                            <th scope="col"><span class="slds-truncate">Close Date</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.OppList}" var="opp">
+                            <tr>
+                                <td>{!opp.Id}</td>
+                                <td>{!opp.Name}</td>
+                                <td>{!opp.StageName}</td>
+                                <td>{!opp.CloseDate}</td>
+                            </tr>
+                        </aura:iteration>
+                    </tbody>
+                </table>
+            </div>
+        </aura:set>       
+    </aura:if>
+    
+</aura:component>

@@ -1,0 +1,45 @@
+<apex:page controller="JSController_2">
+    <script>
+    function getContactJS()
+    {
+        var contactNameJS = document.getElementById('accName').value;
+        JSController_2.getContact(contactNameJS,
+        function(result, event){
+        if(event.status)
+        {
+            debugger;
+            for(var i=0; i < result.length; i++)
+            {
+                 document.getElementById("{!$Component.theBlock.thePageBlockSection.theFirstItem.conFname}").innerHTML = result[i].Id;
+                 document.getElementById("{!$Component.theBlock.thePageBlockSection.theSecondItem.conLname}").innerHTML = result[i].Name;
+                 document.getElementById("{!$Component.theBlock.thePageBlockSection.theThirdItem.conEmail}").innerHTML = result[i].Phone;
+            }
+        }
+        else if(event.type === 'exception')
+         {
+             document.getElementById("errors-js").innerHTML = event.message;
+         }
+        else
+         {
+             document.getElementById("errors-js").innerHTML = 'No Records Found..';
+         }
+       },{escape : true});
+    }
+    </script>
+     Account Name : <input id="accName" type="text" />
+    <button onclick="getContactJS()">Get Contact Details</button>
+    <div id="errors-js"></div>
+    <apex:pageBlock id="theBLock">
+        <apex:pageBlockSection id="thePageBlockSection" columns="4">
+            <apex:pageBlockSectionItem id="theFirstItem">
+                <apex:outputText id="conFname"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="theSecondItem" >
+                <apex:outputText id="conLname" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="theThirdItem" >
+                <apex:outputText id="conEmail" />
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

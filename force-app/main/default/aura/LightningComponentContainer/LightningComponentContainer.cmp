@@ -1,0 +1,9 @@
+<aura:component >
+    <!--The Wrapper Component can also handle the event fired by the Source Component -->
+    <aura:handler name="totalIncomeComponentEvent" event="c.LightningComponentEvent" action="{!c.handleChildEvent}" includeFacets="true"/>	
+    <div class="containerComp">
+        Container Component Section Begin
+            {!v.body} 
+        Container Component Section End
+    </div>
+</aura:component>

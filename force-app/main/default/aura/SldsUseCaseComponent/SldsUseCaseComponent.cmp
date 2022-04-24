@@ -1,0 +1,37 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="truthy" default="false" type="Boolean" />
+    <aura:attribute name="ColorList" type="list" default="['Red', 'Green', 'Peach', 'Black','White']" />
+    
+    <!-- Using List Attribute in LC -->
+    <aura:attribute name="mapVar" type="list"/>
+    
+    <div class="slds-p-around_medium">
+     <h1 class="isha">This is my Heading</h1>
+    <p class="red">This is my Paragraph</p>
+    <div>I'm inside div tag</div>
+    <span>I'm inside span tag</span>
+    </div>
+    
+    <!-- Lazy loading helps you to load the data only when it is required. 
+    Infinite scrolling (enable-infinite-loading) enables you to load a subset of data and then load more data when users scroll to the end of the table.
+    If the following condition is true, "TRUE" portion will be created at the run time and "FALSE" portion will be destroyed and vice-versa -->
+    <aura:if isTrue="{!v.truthy}">
+        True<br/>           
+        <aura:set attribute="else">
+            False<br/>
+        </aura:set>
+    </aura:if>
+    
+    <!-- AURA ITERATION -->
+    <aura:iteration items="{!v.ColorList}" var="eachColor">
+        {!eachColor}<br/>
+    </aura:iteration>
+    
+    <!-- Showing MAP values in LC-->  
+    <lightning:button label="Create Map" onclick="{!c.doCreateMap}" /><br/>
+    
+    <aura:iteration items="{!v.mapVar}" var ="iterator">
+        Key : - {!iterator.key} and Value: {!iterator.value} <br/>
+    </aura:iteration>
+   
+</aura:component>

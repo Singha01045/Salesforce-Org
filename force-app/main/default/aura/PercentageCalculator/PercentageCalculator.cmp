@@ -1,0 +1,18 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    
+    
+    <aura:attribute name="WholeNumber" type="integer" access="public" />   <!--Attributes are like member variables on a class in apex...-->
+    <aura:attribute name="Percentage" type="decimal" />
+    
+    <div class="slds-p-around_medium">
+    <lightning:input type="number" name="input1" label="Enter a Whole Number" value="{!v.WholeNumber}" />
+    <lightning:input type="number" name="input1" label="Enter the percentage" value="{!v.Percentage}" formatter="percent-fixed"/>
+    {!v.WholeNumber}<br/>
+    {!v.Percentage}%   
+    <br/>
+    <lightning:input type="number" name="input1" label="RESULT" value="{!div(mult( v.WholeNumber, v.Percentage ), 100)}" />
+    </div>
+    
+</aura:component>
+
+<!-- v is value provider -->

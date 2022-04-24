@@ -1,0 +1,4 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:hasSobjectName" access="global">
+	<input type="text" class="form-control" onkeyup="{!c.searchKeyChange}"
+            placeholder="Search"/>
+</aura:component>

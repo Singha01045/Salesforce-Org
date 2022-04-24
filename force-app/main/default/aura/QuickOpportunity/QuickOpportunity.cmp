@@ -1,0 +1,31 @@
+<aura:component controller="AuraController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global">
+    <aura:handler event="c:DisplayFormOnButtonClickApplicationEvent" action="{!c.handleEvent}" />
+    <aura:attribute name="fieldMap" type="Map"/>
+    <aura:attribute name="show" type="boolean"/>
+    <aura:attribute name="createOppRecord" type="Opportunity" default="{
+                                                                       sobjectName:'Opportunity',
+                                                                       Name:'',
+                                                                       StageName:'',
+                                                                       CloseDate:'',
+                                                                       Amount:''
+                                                                       }" />
+    <aura:if isTrue="{!v.show}">
+        <lightning:card title="CREATE NEW OPPORTUNITY" iconName="standard:opportunity">
+            <p class="slds-p-horizontal_small">
+                <div>
+                    <lightning:input type="text" label="Enter Name" value="{!v.createOppRecord.Name}" />
+                    <lightning:input type="amount" label="Enter Amount" value="{!v.createOppRecord.Amount}"/> 
+                    <lightning:select value="{!v.createOppRecord.StageName}" label="Enter Stage Name" required="true">
+                        <option value="">--None--</option>
+                        <aura:iteration items="{!v.fieldMap}" var="i" indexVar="key">
+                            <option text="{!i.value}" value="{!i.key}" selected="{!i.key==v.createOppRecord.StageName}" />
+                        </aura:iteration>
+                    </lightning:select>
+                    <lightning:input type="date" label="Enter Close Date" value="{!v.createOppRecord.CloseDate}" required="true" /><br/>  
+                    <lightning:button label="Save"  variant="brand" onclick="{!c.doSave}"/>   <!--variant changes the appearance of the component-->
+                </div><br/>
+            </p>
+        </lightning:card>
+    </aura:if>
+    
+</aura:component>

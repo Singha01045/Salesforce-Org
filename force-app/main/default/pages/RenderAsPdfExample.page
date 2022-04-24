@@ -1,0 +1,15 @@
+<apex:page controller="PdfExampleController" renderAs="pdf">
+  <apex:form >
+    <apex:pageBlock title="Account Details">
+        PageBlock
+        <apex:pageBlockTable value="{!accList}" var="acc" border="2">
+            PageBlockTable
+           <apex:column value="{!acc.name}"/>
+           <apex:column value="{!acc.Phone}"/>
+           <apex:column value="{!acc.Website}"/>
+           <apex:column value="{!acc.Email__c}"/>
+           <apex:column value="{!acc.ShippingStreet}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

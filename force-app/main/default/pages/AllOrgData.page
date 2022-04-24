@@ -1,0 +1,278 @@
+<apex:page controller="DescibeDemoController" standardStylesheets="false" showHeader="false" sidebar="false" readOnly="true">
+    <html ng-app="app">
+        <head>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"/>
+                <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+        </head>
+        
+        <body ng-controller="ctrl">
+            <div class="jumbotron">
+                <h5 class="text-center">TRASFER DATA FROM SALESFORCE</h5>
+            </div>
+            <div class="row">
+                <div class="col-sm-1"> 
+                </div>
+                <div class="col-sm-10"> 
+                        <div class="row">
+                            <div class="col-sm-4"> 
+                                <div class="form-group">
+                                    <label for="email">Select object</label>
+                                    
+                                        <select ng-model="selectedObjectRowData" label="SELECT OBJECTS"
+                                                ng-options="option.Label for option in getObjects"
+                                                class="form-control" required="required" ng-change="getFields()">
+                                            <option value="--None--"></option>
+                                        </select>
+                            	</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div ng-show="selectedObjectRowData!=null">
+                                    <div class="form-group">
+                                        <label for="email">Select Fields</label>
+                                        <select multiple="true" ng-model="selectedFields" size="5" 
+                                                ng-options="option.Label for option in fields"
+                                                class="form-control" required="required" ng-change="">
+                                        </select>
+                                	</div>
+                                </div>
+                                 	
+                            </div>
+                            <div class="col-sm-2">
+                                
+                            </div>
+                            <div class="col-sm-2">
+                                <div style="float:right">
+                                   <button ng-click="buildQuery()" class="btn btn-outline-info">
+                                        Build Query
+                                    </button>
+                                </div>
+                            	
+                            </div>
+                        </div>
+                    	<div ng-show="query != null">
+                            <div class="row">
+                                <div class="col-sm-10">
+                                    
+                                       <textarea rows="3"  name="name" ng-model="query" style="width:100%"></textarea>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div style="float:right">
+                                        <button ng-click="getRecords()" class="btn btn-outline-info">
+                                            Get Queried Records
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                    	</div>
+                    	<br/>
+                    	<div class="row" ng-show="allRecords.length>0">
+                            <table class="table table-hover">
+                                <thead>
+                                    <th ng-repeat="eachField in allSelectedFields">
+                                        {{eachField}}
+                                    </th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="eachRec in allRecords">
+                                        <td ng-repeat="eachField in allSelectedFields">
+                                            {{eachRec[eachField]}}
+                                        </td>
+                                        <td>
+                                            <button ng-click="openEditModel(eachRec)" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                EDIT 
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button ng-click="deleteRecords(eachRec.Id)" class="btn btn-danger">
+                                                DELETE 
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    	</div>
+                </div> 
+                <div class="col-sm-1"> 
+                </div>
+            </div>
+            <div ng-show="showModel">
+				<div class="modal" id="myModal">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                      
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                          <h4 class="modal-title">Modal Heading</h4>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        
+                        <!-- Modal body -->
+                          <div class="modal-body">
+                              First Name
+                              <input type="text" ng-model="recToBeUpdated.FirstName"/>
+                          </div>
+                          <div class="modal-body">
+                              Last Name
+                              <input type="text" ng-model="recToBeUpdated.LastName"/>
+                          </div>
+                        
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-danger" ng-click="saveRecord()">Save</button>
+                        </div>
+                          
+                        
+                      </div>
+                    </div>
+  				</div>                
+            </div>
+            
+            
+        </body>
+        
+        <script>
+        var app = angular.module('app',[]);
+        app.controller('ctrl',function($scope)
+                       {
+                           $scope.getObjects=[];
+                           $scope.showModel = false;
+                           $scope.recToBeUpdated ={};
+                           
+                           Visualforce.remoting.Manager.invokeAction(
+                               '{!$RemoteAction.DescibeDemoController.fetchObjects}',
+                               
+                               function(result, event)
+                               {
+                                   debugger;
+                                   if (event.status)   {
+                                       $scope.getObjects = result;
+                                       $scope.getObjects =[];
+                                       angular.forEach(result,function(value,key){
+                                           $scope.getObjects.push({'API':key,'Label':value});
+                                       });
+                                       $scope.$apply(); }
+                               },
+                               {escape: true}
+                           );
+                           
+                           $scope.getFields = function()
+                           {
+                               Visualforce.remoting.Manager.invokeAction(
+                                   '{!$RemoteAction.DescibeDemoController.getAllRelatedFields}',
+                                   $scope.selectedObjectRowData.API,
+                                   function(result, event)
+                                   {
+                                       debugger;
+                                       if (event.status) 
+                                       {
+                                           //$scope.fields = result;
+                                           $scope.fields =[];
+                                           angular.forEach(result,function(value,key)
+                                                           {
+                                                               $scope.fields.push({'API':key,'Label':value});
+                                                           });
+                                           $scope.$apply();
+                                       }
+                                   },
+                                   {escape: true}
+                               );
+                           }
+                           
+                           $scope.allSelectedFields=[];
+                           $scope.buildQuery = function()
+                           {
+                               $scope.query='';
+                               //var allFieldAPI = [];
+                               let APINameinstring = "SELECT+";
+                               for(var i=0;i<$scope.selectedFields.length;i++)
+                               {
+                                   APINameinstring += $scope.selectedFields[i].API + ",";
+                                   //allFieldAPI.push($scope.selectedFields[i].API);
+                                   $scope.allSelectedFields.push($scope.selectedFields[i].API);
+                               }
+                               var APINameString = APINameinstring.slice(0, -1);
+                               APINameString += "+FROM+" + $scope.selectedObjectRowData.API;
+                               $scope.query=APINameString;
+                               //return APINameString;
+                           }
+                           
+                           $scope.allRecords=[];
+                           $scope.getRecords = function()
+                           {
+                               debugger;
+                               Visualforce.remoting.Manager.invokeAction(
+                                   '{!$RemoteAction.DescibeDemoController.getQueriedRecords}',
+                                   $scope.query,
+                                   function(result, event)
+                                   {
+                                       debugger;
+                                       if (event.status)
+                                       {
+                                           $scope.allRecords = result;
+                                           $scope.$apply();
+                                       } 
+                                   },
+                                   {escape: true}
+                               );
+                           }
+                           
+                           //$scope.idToDelete=allRecords.id;
+                           $scope.deleteRecords = function(recordID)
+                           {
+                               alert(recordID);
+                               alert($scope.selectedObjectRowData.Label);
+                               debugger;
+                               Visualforce.remoting.Manager.invokeAction(
+                                   '{!$RemoteAction.DescibeDemoController.deleteRecords}',
+                                   recordID, $scope.selectedObjectRowData.Label,
+                                   function(result, event)
+                                   {
+                                       debugger;
+                                       if (event.status) {alert('Success: '+ result);}  
+                                       else if (event.type === 'exception') { alert('Exception: '+ result);  } 
+                                           else { alert('Else: '+ result); }
+                                   },
+                                   {escape: true}
+                               );
+                           }
+                           
+                           $scope.openEditModel = function(eachRec)
+                           {
+                               $scope.showModel = true;
+                               $scope.recToBeUpdated = eachRec;
+                           }
+                           
+                           $scope.saveRecord = function()
+                           {
+                               console.log($scope.recToBeUpdated);
+                               var recId= $scope.recToBeUpdated.Id;
+                               
+                               delete $scope.recToBeUpdated['$$hashKey'];
+                               delete $scope.recToBeUpdated['attributes'];
+                               delete $scope.recToBeUpdated['Id'];
+                               
+                               debugger;
+                               Visualforce.remoting.Manager.invokeAction(
+                                   '{!$RemoteAction.DescibeDemoController.updateRecords}',
+                                   $scope.recToBeUpdated, recId, $scope.selectedObjectRowData.Label,
+                                   function(result,event){
+                                       debugger;
+                                       $scope.showModel = false;
+                                       if(event.status) { alert ('Success')  } 
+                                       else if (event.type == 'exception'){ alert('Exception')   } 
+                                       else { alert('Error')  }
+                                   },
+                                   {escape: true}
+                               );
+                           }
+                       });
+        </script>
+        
+    </html>
+</apex:page>

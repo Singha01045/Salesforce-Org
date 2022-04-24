@@ -1,0 +1,25 @@
+<aura:component controller="AuraController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <!--<aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <lightning:card title="Accounts with Custom Account Link">
+    	<div class="slds-p-around_xx-small">
+            <lightning:datatable keyField="id" data="{!v.data}" columns="{!v.columns}"
+                    hideCheckboxColumn="true"/>
+        </div>
+    </lightning:card>-->
+    
+    
+    <div class="demo-only" style="height:12rem">
+        <div class="slds-tabs_default">
+            <ul class="slds-tabs_default__nav" role="tablist">
+                <li class="slds-tabs_default__item" title="Contacts" role="presentation">
+                    <c:FetchContactList/>
+                </li>
+                <li class="slds-tabs_default__item" title="Opportunities" role="presentation">
+                    <c:FetchOpportunityList/>
+                </li>
+            </ul>
+        </div>
+    </div>
+</aura:component>

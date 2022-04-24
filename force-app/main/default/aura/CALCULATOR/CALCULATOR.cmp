@@ -1,0 +1,34 @@
+<aura:component controller="AuraController" >
+    <!-- ================= LC Without Attributes ================= 
+    ********AURA ID********
+    <br/>
+    <div>
+    <b>CALCULATOR EXAMPLE: </b>
+    </div>
+    <div>
+        <div><ui:inputNumber label='FIRST NUMBER' aura:id='fnum'/></div><br />
+        <div><ui:inputNumber label='SECOND NUMBER' aura:id='snum'/></div><br/> 
+        <div><ui:inputNumber label='RESULT' aura:id='Result'/></div><br/>
+        <div><ui:button label='Click Me' press="{!c.calculate}" class="button"/></div>
+    </div>-->
+    
+    <!-- ================= LC Without Attributes ================= 
+    ********AURA ATTRIBUTE******** -->
+    <aura:attribute name="fnumber" type="decimal"/> 
+    <aura:attribute name="snumber" type="decimal"/>
+    <aura:attribute name="result" type="decimal"/>
+    <br/>
+    <div>
+    <b>CALCULATOR EXAMPLE: </b>
+    </div>
+    <div>
+        <div><ui:inputNumber label='FIRST NUMBER' value="{!v.fnumber}"/></div><br />
+        <div><ui:inputNumber label='SECOND NUMBER' value="{!v.snumber}"/></div><br/>
+        <div><ui:inputNumber label='RESULT' value="{!v.result}"/></div><br/>
+        
+        <div><ui:button label='Click Me For Addition' press="{!c.doAdd}" class="button"/></div>       <!-- c is an action provider -->
+        <div><ui:button label='Click Me For Subtraction' press="{!c.doSub}" class="button"/></div>
+        <div><ui:button label='Click Me For Multiplication' press="{!c.doMul}" class="button"/></div>
+        <div><ui:button label='Click Me For Division' press="{!c.doDiv}" class="button"/></div>
+    </div>
+</aura:component>

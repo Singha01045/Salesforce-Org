@@ -1,0 +1,10 @@
+<aura:component>
+    
+    <aura:attribute name="msg" type="string"/>
+    <aura:handler name="notifyEvent" event="c:NotifierHandlerEvent" action="{!c.handleChildEventz}" phase="capture"/>	
+    <div class="innerComponent">
+        <c:NotifierComponent/>
+    </div> <br/><br/>
+    <p>{!v.msg}</p>
+    
+</aura:component>

@@ -1,0 +1,39 @@
+<apex:page controller="JSController_1">
+    <html>
+        <head>
+          <script>  
+          function getContact()
+            {
+                var fnm=document.getElementById("fn").value;
+                var lnm=document.getElementById("ln").value;
+                var em=document.getElementById("e").value;
+                Visualforce.remoting.Manager.invokeAction
+                ( '{!$RemoteAction.JSController_1.createContact}',
+                 fnm, lnm, em,
+                 function handleResult(result, event) 
+                 {
+                     alert (result);
+                 }
+                );
+            }  
+           </script>
+        </head>
+        <body>
+            <div style="Margin: 2% 2%;" id="div1">
+                <input type="text" class="form-control" placeholder="Enter First Name" name="FirstName" id="fn"/>
+                <input type="text" class="form-control" placeholder="Enter Last Name" name="LastName" id="ln"/>
+                <input type="text" class="form-control" placeholder="Enter Email" name="Email" id="e"/>
+                <button type="submit" onclick="getContact()">Submit</button>
+            </div>    
+            <apex:form >
+                <apex:pageBlock title="List of Contact">
+                    <apex:pageBlockTable value="{!conList}" var="c"> 
+                        <apex:column value="{!c.FirstName}"/>
+                        <apex:column value="{!c.LastName}"/>
+                        <apex:column value="{!c.Email}"/>
+                    </apex:pageBlockTable>
+                </apex:pageBlock>
+            </apex:form>
+        </body>
+    </html>
+</apex:page>

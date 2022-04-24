@@ -1,0 +1,9 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+	<div class="slds-p-horizontal_small">
+        <h1>Calling Methods of Child Component through Parent Component</h1> <br/><br/>
+        CHILD COMPONENT START <c:ChildMessageComponent aura:id="messages" /> CHILD COMPONENT END<br/><br/>
+    </div>
+    <ui:button label="Show Confirmation" press="{!c.handleShowMessage}" /> 
+    <ui:button label="Show Error" press="{!c.handleError}" /> 
+    <ui:button label="Remove Messages" press="{!c.handleRemoveMessage}" /> 
+</aura:component>
