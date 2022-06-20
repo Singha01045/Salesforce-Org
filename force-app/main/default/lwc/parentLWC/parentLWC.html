@@ -1,0 +1,58 @@
+<template>
+
+    <lightning-card title ="Composition Demo" icon-name="custom:custom14">
+        <div class="slds-m-around_medium">
+           <h2><b>Hello, I'm inside Parent Component...</b></h2>
+        </div>
+    </lightning-card>
+
+    <lightning-card title="Parent to Child Data Communication Using String" icon-name="custom:custom15">
+        <div> 
+           <c-child-lwc message="Indicates a dangerous or potentially negative action."></c-child-lwc>
+           <c-child-lwc class-name="success" message="Sucess! Indicates a successful or positive action."></c-child-lwc>
+           <c-child-lwc class-name="info" message="Info! Indicates a neutral informative change or action."></c-child-lwc>
+           <c-child-lwc class-name="warning" message="Warning! Indicates a warning that might need attention."></c-child-lwc>
+       </div> 
+     </lightning-card>
+
+    <lightning-card title="Parent to Child Data Communication Using Array/Objects" icon-name="custom:custom16">
+        <div class="slds-m-around_medium">
+            <c-child-lwc user-details={userDetails}></c-child-lwc>
+        </div>
+    </lightning-card>
+
+
+
+    <!--
+
+        <lightning-card title ="Composition Demo" icon-name="custom:custom14">
+      <div class="slds-m-around_medium">
+         <h2><b>Hello, I'm inside Parent Component...</b></h2>
+        // HOW TO PASS DATA AS STRING TO CHILD COMPONENT      
+         <c-child-lwc message="Parent Component is passing data to child."></c-child-lwc>    // Parent Comp pass data to child
+         <c-child-lwc message="Indicates a dangerous or potentially negative action."></c-child-lwc>
+         <c-child-lwc class-name="success" message="Sucess! Indicates a successful or positive action."></c-child-lwc>
+         <c-child-lwc class-name="info" message="Info! Indicates a neutral informative change or action."></c-child-lwc>
+         <c-child-lwc class-name="warning" message="Warning! Indicates a warning that might need attention."></c-child-lwc>
+     </div> 
+   </lightning-card>
+
+
+
+
+    
+   //SF Predators
+    Kebab Case
+    EVENT HANDLER
+    <c-child-lwc oneventfire ={handleEvent} api-param="api value form Parent" track-param ="track value form Parent" 
+    change={parentChange} non-reactive-prop="non reactive value form Parent"> </c-child-lwc> 
+
+     
+    <br/><div>
+        <lightning-button label="Click for Change" onclick={handleChange}></lightning-button>
+    </div>
+    <br/><div>
+        <lightning-button label="Call Child Method" onclick={callChild}></lightning-button>
+    </div> -->
+
+</template>

@@ -1,0 +1,42 @@
+<apex:page controller="LinkedIn_SF_Controller" action="{!readCode}">
+    
+    <apex:form >
+        <apex:pageBlock title="Authorization" id="pb">
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="RequestToken" action="{!requestToken}" reRender="pb"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="1">
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Client Id"/>
+                    <apex:inputText value="{!clientId}" size="100"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Client Secret"/>
+                    <apex:inputText value="{!clientSecret}" size="100"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="code"/>
+                    <apex:inputText value="{!code}" size="100"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Redirect Url"/>
+                    <apex:inputText value="{!redirectUrl}" size="100"/>
+                </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection columns="1" rendered="{! !ISNULL(accessToken)}">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="accessToken"/>
+                    <apex:inputText value="{!accessToken}" size="100"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:form>
+    
+</apex:page>

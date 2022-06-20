@@ -1,0 +1,19 @@
+<template>
+    <template if:true={loaded}>
+        <iframe src={url} width="100%" height="700" style="border:none;">
+        </iframe>
+    </template>
+    <template if:false={loaded}>
+        <lightning-spinner alternative-text="Loading"></lightning-spinner>
+    </template>
+
+    <div class="slds-align_absolute-center">
+        <lightning-button style="width: auto; margin-right: 5px;" variant="brand" label="SUBMIT" onclick={savePDF}
+    title="Submit" >
+</lightning-button>
+
+<lightning-button style="width: auto; margin-right: 5px;" variant="brand" label="EMAIL TO CUSTOMER" onclick={emailToClient}
+    title="EMAIL TO CUSTOMER">
+</lightning-button>
+    </div>
+</template>

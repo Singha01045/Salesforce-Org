@@ -1,0 +1,29 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+       
+  <!-- <lightning:recordEditForm aura:id="recordEditForm"
+                              objectApiName="Account"
+                              onload="{!c.handleCreateLoad}">
+        <lightning:messages />
+        <lightning:inputField fieldName="Name" />
+        <lightning:inputField fieldName="Phone" value="My Field Value" />
+        <lightning:button class="slds-m-top_small" type="submit" label="Create new" />
+    </lightning:recordEditForm>   -->
+    
+   
+    
+    <aura:attribute name="fields" type="String[]" default="['Name','AnnualRevenue','Industry', 'Deleted_Time__c', 'Email__c', 'is_gold__c']" />
+    <aura:attribute name="recordId" type="String"/>
+    <lightning:inputField fieldName="Phone" value="My Field Value" />
+    <lightning:notificationsLibrary aura:id="notifLib"/>
+    <lightning:recordForm objectApiName="Account" fields="{!v.fields}" onsuccess="{!c.handleSuccess}" />
+    
+      <!-- <lightning:recordViewForm recordId="{!v.recordId}" objectApiName="Account">
+        <lightning:outputField fieldName="Name"/>
+        <lightning:outputField fieldName="Phone"/>
+        <lightning:outputField fieldName="Rating"/>
+        <lightning:button
+                          class="slds-m-top_small"
+                          variant="brand"/>
+    </lightning:recordViewForm>-->
+    
+</aura:component>

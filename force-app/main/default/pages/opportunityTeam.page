@@ -1,0 +1,82 @@
+<apex:page showHeader="false" sidebar="false" controller="OpportunityTeamHelper" standardStylesheets="false">
+ <html lang="En">
+
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"/>
+
+        <style>
+            .center {
+                margin: auto;
+                padding: 10px;
+            }
+            .customClass{
+                margin-top:2%;
+            }
+        </style>
+    </head>
+
+     <body ng-app="myApp" ng-controller="appController">
+         
+         <select class="form-select" aria-label="" ng-model="opportunityTeamMasterSelected">
+             <option ng-repeat="opp in opportunitTeamMaster">{{opp.Name}}</option>
+         </select>
+         
+         <button type="submit" class="btn btn-warning " ng-click="saveFeedback()">Submit</button>
+         
+     </body>
+    <script>
+        var app = angular.module("myApp", []).controller('appController', function ($scope) {
+            debugger;
+            $scope.opportunitTeamMaster;
+            $scope.opportunityTeamMasterSelected;
+            $scope.saveFeedback = function () {
+                debugger;
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.OpportunityTeamHelper.createOppTeam}',
+                    function (result, event) {
+                        if (event.status) {
+                            //alert('updated');
+                            $scope.$apply();
+                        }
+                        else if (event.type === 'exception') {
+                            alert(event.message);
+                        } else {
+                            alert(event.message);
+                        }
+                        $scope.showSpinner = false;
+                        window.location.replace("https://www.ondonte.com/");
+                    },
+                    { escape: true }
+                );
+            },
+                $scope.onPageLoad = function () {
+                    debugger;
+                    $scope.jobId = '{!$CurrentPage.parameters.Id}';
+                    Visualforce.remoting.Manager.invokeAction(
+                        '{!$RemoteAction.OpportunityTeamHelper.getOpportunityteamMaster}',
+                        function (result, event) {
+                            if (event.status) {
+                                if (result != null) {
+                                    $scope.opportunitTeamMaster = result;
+                                } else {
+
+                                }
+                                $scope.$apply();
+                            }
+                            else if (event.type === 'exception') {
+                                alert(event.message);
+                            } else {
+                                alert(event.message);
+                            }
+                             
+                        },
+                        { escape: true }
+                    );
+                }
+            $scope.onPageLoad();
+        })
+    </script>
+
+    </html>
+
+</apex:page>

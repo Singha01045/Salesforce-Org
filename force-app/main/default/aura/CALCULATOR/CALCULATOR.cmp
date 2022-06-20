@@ -22,7 +22,7 @@
     <b>CALCULATOR EXAMPLE: </b>
     </div>
     <div>
-        <div><ui:inputNumber label='FIRST NUMBER' value="{!v.fnumber}"/></div><br />
+        <div><ui:inputNumber label='FIRST NUMBER' value="{!v.fnumber}"/></div><br/>
         <div><ui:inputNumber label='SECOND NUMBER' value="{!v.snumber}"/></div><br/>
         <div><ui:inputNumber label='RESULT' value="{!v.result}"/></div><br/>
         

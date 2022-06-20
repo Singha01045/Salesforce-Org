@@ -1,0 +1,177 @@
+<apex:page readOnly="true" applyHtmlTag="false" sidebar="false" showHeader="false" cache="true" docType="html-5.0" renderAs="pdf" controller="PerformaInvoicePDFController">
+    <html>
+        <head>
+            <style type="text/css">
+                @page {
+                padding-left: 5px;    
+                padding-right: 5px;      
+                }
+                th {  
+                font-weight: bold;
+                text-align: center;
+                
+                color: black;
+                padding: 8px;
+                }
+                td {    
+                font-size: 15px;
+                text-align: left;
+                padding: 8px;
+                }
+                table{
+                border-collapse: collapse;
+                }
+                table, th, td {
+                border: 1px solid black;
+                }
+            </style>
+        </head>
+        
+        <body>
+            <table style="width:100%">
+                <tr style="font-family: sans-serif;">
+                    <th style="font-size: 12px;">PERFORMA INVOICE</th>
+                </tr>
+            </table>
+            
+            <table style="width:100%">
+                <tr style="font-family: sans-serif;">
+                    <td style="width:60%; font-size: 12px;">
+                        <b>Exporter :<br/>
+                            Symega Food Ingredients Ltd.</b><br/>
+                        {!symObj.symega_address__c}
+                    </td>
+                    <td>
+                        <table style="width:100%">
+                            <tr style="font-family: sans-serif;">
+                                <td style="width:60%; font-size: 12px;"><b>Performa Invoice No.</b>
+                                    {!oppDetails.Fiscal_Year__c}</td>
+                                <td><b>Date</b></td>
+                            </tr>
+                            
+                            <tr style="font-family: sans-serif;">
+                                <td style="font-size: 12px;"><b>Buyer's Order No. and Date</b></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                
+                <tr style="font-family: sans-serif;">
+                    <td style="width:60%; font-size: 12px;">
+                        <b>Consignee:</b><br/>
+                        {!oppDetails.Account.ShippingStreet} {!oppDetails.Account.ShippingCity} {!oppDetails.Account.ShippingState} 
+                        {!oppDetails.Account.ShippingCountry} {!oppDetails.Account.ShippingGeocodeAccuracy} {!oppDetails.Account.ShippingLatitude} 
+                        {!oppDetails.Account.ShippingLongitude} {!oppDetails.Account.ShippingPostalCode}
+                    </td>
+                    <td style="font-family: sans-serif; font-size: 12px;">
+                        <b>Buyer (If other than consignee)</b><br/>
+                        {!symObj.Buyer_If_other_than_consignee__c}
+                    </td>
+                </tr>
+            </table>
+            
+            <table style="width:100%"> 
+                <tr style="font-family: sans-serif;">
+                    <td style="width:30%; font-size: 12px;"><b>Pre - Carriage by</b></td>
+                    <td style="width:30%; font-size: 12px;"><b>Place of Reciept by Pre - Carrier</b></td>
+                    <td style="width:40%; font-size: 12px;"><b>Country of Origin of goods</b></td>
+                </tr>
+                
+                <tr style="font-family: sans-serif;">
+                    <td style="width:30%; font-size: 12px;"><b>Port Of Discharge</b></td>
+                    <td style="width:30%; font-size: 12px;"><b>Final Destination</b></td>
+                    <td style="width:40%; font-size: 12px;"><b>Country of Final Destination</b></td>
+                </tr>
+                
+                <tr style="font-family: sans-serif;">
+                    <td style="width:30%; font-size: 12px;"><b>Vessel / Flight Name and Voy No.</b></td>
+                    <td style="width:30%; font-size: 12px;"><b>Port Of Loading</b></td>
+                    <td style="width:40%; font-size: 12px;"><b>Terms of Delivery and Payment :</b></td>
+                </tr>
+            </table>
+            
+            <table style="width:100%">
+                <tr style="font-family: sans-serif; font-size: 12px;">
+                    <td style="width:10%; font-size: 12px;"><b>Exporter HS Code</b></td>
+                    <td style="width:10%; font-size: 12px;"><b>Carton Packaging</b></td>
+                    <td style="width:10%; font-size: 12px;"><b>Code</b></td>
+                    <td style="width:30%; font-size: 12px;"><b>Description</b></td>
+                    <td style="width:13.4%; font-size: 12px;"><b>Quantity(In Kgs)</b></td>
+                    <td style="width:13.3%; font-size: 12px;"><b>Rate/Kg</b></td>
+                    <td style="width:13.3%; font-size: 12px;"><b>AMOUNT</b></td>
+                </tr>
+                
+                <apex:repeat value="{!oppDetails.OpportunityLineItems}" var="opp" id="theRepeat">
+                    <tr style="font-family: sans-serif; font-size: 14pt;">
+                        <td style="font-size: 12px;">{!symObj.Exporter_HS_Code__c}</td>
+                        <td style="font-size: 12px;">{!symObj.Carton_Packaging__c}</td>
+                        <td style="font-size: 12px;">{!opp.ProductCode}</td>
+                        <td style="font-size: 12px;">{!opp.Description}</td>
+                        <td style="font-size: 12px;">{!opp.Quantity}</td>
+                        <td style="font-size: 12px;">{!opp.UnitPrice}</td>
+                        <td style="font-size: 12px;">{!opp.TotalPrice}</td>
+                    </tr>
+                </apex:repeat>    
+            </table>
+            
+            <table style="width:100%">
+                <tr style="font-family: sans-serif;">
+                    <td style="width:60%; font-size: 12px;"><b>Total</b></td>
+                    <td style="width:13.3%; font-size: 12px;">{!sumOfQuantity}</td>
+                    <td style="width:13.3%; font-size: 12px;">{!sumOfRate}</td>
+                    <td style="width:13.3%; font-size: 12px;">{!sumOfAmount}</td>
+                </tr>
+                
+                <tr style="font-family: sans-serif;">
+                    <td style="width:60%; font-size: 12px;"><b>Round off</b></td>
+                    <td style="width:13.3%; font-size: 12px;"></td>
+                    <td style="width:13.3%; font-size: 12px;"></td>
+                    <td style="width:13.3%; font-size: 12px;"></td>
+                </tr>
+                
+                <tr style="font-family: sans-serif;">
+                    <td style="width:60%; font-size: 12px;"><b>Grand Total</b></td>
+                    <td style="width:13.3%; font-size: 12px;"></td>
+                    <td style="width:13.3%; font-size: 12px;"></td>
+                    <td style="width:13.3%; font-size: 12px;"></td>
+                </tr>
+            </table>
+            
+            <table style="width: 100%">
+                <tr>
+                    <td></td>
+                </tr>
+                
+                <tr>
+                    <td><b>Total Number Of Carton : </b></td>
+                </tr>
+                
+                <tr>
+                    <td><b>Total Net Wt : </b></td>
+                </tr>
+                
+                <tr>
+                    <td>{!symObj.Bank_Name_And_Address__c}<br/>
+                        {!symObj.Account_Name__c}<br/>
+                        {!symObj.Account_No__c}</td>
+                </tr>
+            </table>
+            
+            <table style="width: 100%">
+                <tr>
+                    <td style="width: 40%"><b>Declaration :</b>
+                        We declare that this Proforma Invoice shows the actual price of the goods described
+                        and that all particulars are true and correct.
+                        E and O.E</td>
+                    
+                    <td>Exporters Signature / Company Seal</td>
+                    
+                    <td>Consignees Order Acceptance
+                        Signature / Company seal
+                    </td>
+                </tr>
+            </table>
+        </body>        
+    </html>
+</apex:page>

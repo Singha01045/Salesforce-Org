@@ -13,7 +13,7 @@ trigger AllBeforeAfterEventsTrigger on Contact (before insert, after insert, bef
         {
             for(Contact con:trigger.new)
             {
-                system.debug(con);           //Inserts Valuebut ID NULL
+                system.debug(con);           //Inserts Value but ID NULL
             }
         }
         if(trigger.isAfter)

@@ -1,6 +1,11 @@
 <aura:application extends="force:slds">
     
-    <c:QuickContact/>
+   <div class='slds-p-horizontal_small'>
+        <c:SearchBarComponent/><br/><br/>
+        <c:QuickContact/>
+        <c:QuickOpportunity/>
+        <c:ContactOppDetailsToggle/>
+    </div>
      
     <!--
 

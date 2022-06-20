@@ -1,0 +1,14 @@
+<template>
+    <lightning-card title="Calling Child From Parent" icon-name="custom:custom2">
+        <div class="slds-m-around_medium">
+            <div class="parent-wrapper">
+                <button class="btn" onclick={changeColor}>
+                    Click me to Change the Bar Color
+                </button>
+            </div>
+            <div class="child-wrapper">
+                <c-bar-child-component></c-bar-child-component>
+            </div>
+        </div>
+    </lightning-card>
+</template>

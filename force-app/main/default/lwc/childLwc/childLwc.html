@@ -1,0 +1,56 @@
+<template>
+    <template for:each={userDetails} for:item="user">
+        <div class="card" key={user.name}>
+            <img src={user.imageUrl} alt = {user.name} style="width:100%;"/>
+            <h1>{user.name}</h1>
+            <p class="title">{user.title}</p>
+            <p>{user.company}</p>
+            <p><button>{user.buttontext}</button></p>
+        </div>
+    </template>
+
+    <lightning-card>
+        <div class={alertClassName}>
+            <div> {message} </div>     
+        </div>
+    </lightning-card>    
+
+        
+<!--
+
+
+    <h2><b>Hello, I'm inside Child Component...</b></h2>
+    
+   //   HOW TO PASS DATA AS STRING TO CHILD COMPONENT   
+    <div class={alertClassName}>
+        <div> {message} </div>     
+    </div>
+
+    //SF Predators
+    <lightning-card title="Track Property">
+        {trackParam}
+    </lightning-card><br/>
+    <lightning-card title="API Property">
+        {apiParam}
+    </lightning-card><br/>
+    <lightning-card title="Non-Reactive Property">
+        {nonReactiveProp}
+    </lightning-card><br/>
+    <lightning-card title="API Change">
+        {change}
+    </lightning-card><br/>
+    <div>
+        <lightning-button label="Click Me" onclick ={handleParam}></lightning-button>
+    </div><br/>
+
+
+    <lightning-card title="API Change">
+        Event from Child:: {change}
+    </lightning-card><br/>
+    <div>
+        <lightning-button label="Pass Parameter" onclick ={handleMe}></lightning-button>
+    </div>
+-->
+
+    
+</template>

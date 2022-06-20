@@ -10,7 +10,7 @@
         
         <body ng-controller="ctrl">
             <div class="jumbotron">
-                <h5 class="text-center">TRASFER DATA FROM SALESFORCE</h5>
+                <h5 class="text-center">TRANSFER DATA FROM SALESFORCE</h5>
             </div>
             <div class="row">
                 <div class="col-sm-1"> 

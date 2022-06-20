@@ -4,6 +4,8 @@
         <apex:pageBlockSection >
             <apex:inputField value="{!Account.Name}"></apex:inputField>
             <apex:inputField value="{!Account.Phone}"></apex:inputField>
+            <apex:inputField value="{!Account.Type}"></apex:inputField>
+            <apex:inputField value="{!Account.Website}"></apex:inputField>
         </apex:pageBlockSection>
         <apex:commandButton value="Click" action="{!Save}"></apex:commandButton>
     </apex:pageBlock>
